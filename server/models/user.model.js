@@ -31,8 +31,17 @@ const userSchema = new mongoose.Schema({
         enum : ["Male", "Female", "Others"]
     },
     college:{
-
-    }
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'College'
+    },
+    associations:{
+        type : Array
+    },
+    Timestamp:true
+    //address
+    //parents contaacts
+    //aadhaar no
+    // abc id
 });
 
 export const User = mongoose.model("User", userSchema);
