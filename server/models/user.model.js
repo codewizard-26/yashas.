@@ -37,11 +37,27 @@ const userSchema = new mongoose.Schema({
     associations:{
         type : Array
     },
+    address:{
+        type : String,
+        required : [true, "Address is required"]
+    },
+    parentContacts:{
+        type : Number,
+        required : [true, "Parents phone number is required"],
+        length : [10, "Phone number must be valid"]
+    },
+    parentsEmail:{
+        type : String,
+        lowercase : [true, "Email must be lowercase"],
+        required : [true, "Email is required"],
+        unique : [true, "Email must be unique"]
+    },
+    aadharNo:{
+        type : String,
+        required : [true, "Aadhar number is required"],
+        length : [12, "Aadhar number should be 12 characters long"]
+    },
     Timestamp:true
-    //address
-    //parents contaacts
-    //aadhaar no
-    // abc id
 });
 
 export const User = mongoose.model("User", userSchema);
