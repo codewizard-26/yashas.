@@ -20,6 +20,8 @@ const collegeSchema = nnew.mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : 'Institute'
     }
+}, {
+    timestamps:true
 })
 
 export const College = mongoose.model("College", collegeSchema)

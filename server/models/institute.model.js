@@ -12,11 +12,22 @@ const instituteSchema = new mongoose.Schema({
         required : [true, "Email is required"],
         unique : [true, "Email must be unique"]
     },
-    college:{
-        type : Array,
-        required : [true, "Atleast one college is required"],
+    password:{
+        type : String,
+        min : [6, "The password must be atleast 6 characters long"]
     },
-    timestamp : true
+    college : [
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'college'
+        }
+    ]
+    // college:{
+    //     type : Array,
+    //     required : [true, "Atleast one college is required"],
+    // }
+}, {
+    timestamps:true
 })
 
 export const Institute = mongoose.model("Institute", instituteSchema)

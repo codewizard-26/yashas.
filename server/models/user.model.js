@@ -34,9 +34,12 @@ const userSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : 'College'
     },
-    associations:{
-        type : Array
-    },
+    associations:[
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'Organisation'
+        }
+    ],
     address:{
         type : String,
         required : [true, "Address is required"]
@@ -56,8 +59,9 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : [true, "Aadhar number is required"],
         length : [12, "Aadhar number should be 12 characters long"]
-    },
-    Timestamp:true
+    }
+}, {
+    timestamps:true
 });
 
 export const User = mongoose.model("User", userSchema);

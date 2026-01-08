@@ -9,7 +9,8 @@ const teacherSchema = new mongoose.Schema({
     },
     password : {
         type : String,
-        required : [true, "Password is required"]
+        required : [true, "Password is required"],
+        min : [6, "Password must be atleast 6 characters long"]
     },
     name:{
         type : String,
@@ -18,8 +19,9 @@ const teacherSchema = new mongoose.Schema({
     college:{
         type : mongoose.Schema.Types.ObjectId,
         ref : 'College'
-    },
-    Timestamp:true
+    }
+}, {
+    timestamps:true
 })
 
 export const Teacher = mongoose.model("Teacher", teacherSchema)
