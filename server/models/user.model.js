@@ -59,6 +59,10 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : [true, "Aadhar number is required"],
         length : [12, "Aadhar number should be 12 characters long"]
+    },
+    course:{
+        type : String,
+        required : [true, "Course is required"]
     }
 }, {
     timestamps:true
