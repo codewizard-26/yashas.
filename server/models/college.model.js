@@ -6,6 +6,16 @@ const collegeSchema = nnew.mongoose.Schema({
         required : [true, "College name is required"],
         unique : [true, "College name must be unique"]
     },
+    username:{
+        type : String,
+        required : [true, "Username is required"],
+        unique : [true, "Username is unique"]
+    },
+    password:{
+        type : String,
+        required : [true, "Password is required"],
+        min : [6, "Password is too small"]
+    },
     address:{
         type : String,
         required : [true , "Address is required"],
@@ -19,7 +29,13 @@ const collegeSchema = nnew.mongoose.Schema({
     institute:{
         type : mongoose.Schema.Types.ObjectId,
         ref : 'Institute'
-    }
+    },
+    association:[
+        {
+            type : mongoose.model.Types.ObjectId,
+            ref : "Association"
+        }
+    ]
 }, {
     timestamps:true
 })
