@@ -1,6 +1,9 @@
+require("dotenv").config()
 const express = require('express')
 const app = express()
-require("dotenv").config()
+const connectDb = require("./db/db.js")
+
+connectDb()
 
 app.get('/' , (req,res)=>{
     res.send("Backend Running");
