@@ -22,10 +22,6 @@ const instituteSchema = new mongoose.Schema({
             ref : 'college'
         }
     ]
-    // college:{
-    //     type : Array,
-    //     required : [true, "Atleast one college is required"],
-    // }
 }, {
     timestamps:true
 })

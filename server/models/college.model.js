@@ -1,3 +1,5 @@
+import { MongoGridFSChunkError } from "mongodb"
+
 const mongoose = require("mongoose")
 
 const collegeSchema = nnew.mongoose.Schema({
@@ -34,6 +36,12 @@ const collegeSchema = nnew.mongoose.Schema({
         {
             type : mongoose.model.Types.ObjectId,
             ref : "Association"
+        }
+    ],
+    students:[
+        {
+            type : mongoose.model.Types.ObjectId,
+            ref : "User"
         }
     ]
 }, {
