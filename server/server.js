@@ -1,9 +1,16 @@
 require("dotenv").config()
 const express = require('express')
+const connectDb = require("./config/db.js")
 const app = express()
-const connectDb = require("./db/db.js")
 
+//Connecting Database
 connectDb()
+
+//Json file access
+app.use(express.json({limit:"16kb"}))
+
+//Url reader
+app.use(express.urlencoded({extended:true}))
 
 app.get('/' , (req,res)=>{
     res.send("Backend Running");
