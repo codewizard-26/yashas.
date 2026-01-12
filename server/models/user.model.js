@@ -1,3 +1,4 @@
+require("dotenv").config()
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
@@ -67,5 +68,16 @@ const userSchema = new mongoose.Schema({
 }, {
     timestamps:true
 });
+
+userSchema.pre("save", async function(next){
+    if(this.isModified("password")){
+        this.password = bcrypt.hash(this.password, process.env.SALT_ROUNDS)
+        next()
+    }
+})
+
+userSchema.methods.isPasswordCorrect = async function(password){
+    return await bcrypt.compare(password, this.password)
+}
 
 export const User = mongoose.model("User", userSchema);
