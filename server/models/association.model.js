@@ -28,4 +28,15 @@ const associationSchema = new mongoose.Schema({
     timestamps : true
 })
 
+associationSchema.pre("save", async function(next){
+    if (this.isModified("passowrd")){
+        this.password = bcrypt.hash(password, process.env.SALT_ROUNDS)
+        next()
+    }
+})
+
+associationSchema.methods.isPasswordCorrect = async function (password) {
+    return await bcrypt.compare(password, this.password)
+}
+
 export const Association = mongoose.model("Association", associationSchema)

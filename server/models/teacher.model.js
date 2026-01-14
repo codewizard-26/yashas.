@@ -1,3 +1,4 @@
+require("dotenv").config()
 const mongoose = require("mongoose")
 
 const teacherSchema = new mongoose.Schema({
@@ -23,5 +24,16 @@ const teacherSchema = new mongoose.Schema({
 }, {
     timestamps:true
 })
+
+teacherSchema.pre("save", async function(next){
+    if (this.isModified("password")){
+        this.password = bcrypt.hash(password, process.env.SALT_ROUNDS)
+        next()
+    }
+})
+
+teacherSchema.methods.isPasswordCorrect = async function(password) {
+    return await bcrypt.compare(password, this.password)
+}
 
 export const Teacher = mongoose.model("Teacher", teacherSchema)

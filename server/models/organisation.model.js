@@ -27,4 +27,15 @@ const organisationSchema = new mongoose.Schema({
     timestamps:true
 })
 
+organisationSchema.pre("save", async function(next){
+    if (this.isModified("password")){
+        this.password = bcrypt.hash(password, process.env.SALT_ROUNDS)
+        next()
+    }
+})
+
+organisationSchema.methods.isPasswordCorrect = async function(password) {
+    return await bcrypt.compare(password, this.password)
+}
+
 export const Organisation = mongoose.model("Organisation", organisationSchema)

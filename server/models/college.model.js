@@ -48,4 +48,15 @@ const collegeSchema = nnew.mongoose.Schema({
     timestamps:true
 })
 
+collegeSchema.pre("save", async function(next){
+    if (this.isModified("passowrd")){
+        this.password = bcrypt.hash(password, process.env.SALT_ROUNDS)
+        next()
+    }
+})
+
+collegeSchema.methods.isPasswordCorrect = async function (password) {
+    return await bcrypt.compare(password, this.password)
+}
+
 export const College = mongoose.model("College", collegeSchema)
