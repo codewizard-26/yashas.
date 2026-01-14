@@ -1,6 +1,7 @@
-import { MongoGridFSChunkError } from "mongodb"
-
+require("dotenv").config()
 const mongoose = require("mongoose")
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const collegeSchema = nnew.mongoose.Schema({
     name:{
@@ -57,6 +58,32 @@ collegeSchema.pre("save", async function(next){
 
 collegeSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password)
+}
+
+userSchema.methods.generateAccessToken = async function(){
+    return await jwt.sign(
+        {
+            _id : this.id,
+            username : this.username,
+            password : this.password
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+            expiresIn : process.env.ACCESS_TOKEN_EXPIRY
+        }
+    )
+}
+
+userSchema.methods.generateRefreshToken = async function(){
+    return await jwt.sign(
+        {
+            _id : this.id
+        },
+        process.env.REFRESH_TOKEN_SECRET,
+        {
+            expiresIn : process.env.REFRESH_TOKEN_EXPIRY
+        }
+    )
 }
 
 export const College = mongoose.model("College", collegeSchema)

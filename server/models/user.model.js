@@ -1,5 +1,7 @@
 require("dotenv").config()
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
     username:{
@@ -78,6 +80,32 @@ userSchema.pre("save", async function(next){
 
 userSchema.methods.isPasswordCorrect = async function(password){
     return await bcrypt.compare(password, this.password)
+}
+
+userSchema.methods.generateAccessToken = async function(){
+    return await jwt.sign(
+        {
+            _id : this.id,
+            username : this.username,
+            password : this.password
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+            expiresIn : process.env.ACCESS_TOKEN_EXPIRY
+        }
+    )
+}
+
+userSchema.methods.generateRefreshToken = async function(){
+    return await jwt.sign(
+        {
+            _id : this.id
+        },
+        process.env.REFRESH_TOKEN_SECRET,
+        {
+            expiresIn : process.env.REFRESH_TOKEN_EXPIRY
+        }
+    )
 }
 
 export const User = mongoose.model("User", userSchema);
