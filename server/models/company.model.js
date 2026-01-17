@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const companySchema = new mongoose.Schema({
-    companyName:{
+    name:{
         type : String,
         required : [true, "Company name is required."],
         unique: [true, "Company name must be unique."]
@@ -19,8 +19,8 @@ const companySchema = new mongoose.Schema({
     },
     branches: [
         {
-    type : mongoose.Schema.Types.ObjectId,
-    ref : "Branch"
+            type : mongoose.Schema.Types.ObjectId,
+            ref : "Branch"
         }
     ]
 },

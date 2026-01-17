@@ -1,10 +1,9 @@
 const branchSchema= new mongoose.Schema({
-    branchName:{
+    name:{
         type : String,
         required : [true, "Branch name is required."],
         unique: [true, "Branch name must be unique."]
     },
-
     userName:{
         type: String,
         required : [true, "Username is required."],

@@ -67,7 +67,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required : [true, "Pan number is required"],
         length : [10, "Pan number should be 10 characters long"]
-    }
+    },
     course:{
         type : String,
         required : [true, "Course is required"]
@@ -75,9 +75,8 @@ const userSchema = new mongoose.Schema({
     DOB:{
         type : Number,
         required : [true, "DOB is required"]
-    },
-    
-    {
+    }
+},{
     timestamps:true
 });
 
