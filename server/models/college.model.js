@@ -29,6 +29,10 @@ const collegeSchema = nnew.mongoose.Schema({
         required : [true, "College code is required"],
         unique : [true, "College code must be unique"]
     },
+    branch: {
+        type: String,
+        required: [true, "Branch is required"]
+    },
     institute:{
         type : mongoose.Schema.Types.ObjectId,
         ref : 'Institute'
