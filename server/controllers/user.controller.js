@@ -9,6 +9,8 @@ const registerUser = asyncHandler( async (req, res) => {
     //create user in db
     //check if user creation 
     //return res
+    console.log("LMAO");
+    res.send("LMAO");
 })
 
 module.exports = registerUser;
